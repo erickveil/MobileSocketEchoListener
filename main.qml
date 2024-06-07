@@ -39,9 +39,36 @@ ApplicationWindow {
             }
 
             Rectangle {
-                width: parent.width * 0.9
+                id: portContainer
+                width: parent.width
                 height: 50
-                color: "blue"
+                color: "#ffffff"
+                radius: 10
+                border.color: "#cccccc"
+
+                Row {
+                    height: parent.height
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Text {
+                        text: "Port:"
+                        font.pixelSize: 20
+                        color: "#333333"
+                        anchors.verticalCenter: portContainer.verticalCenter
+                    }
+
+                    TextField {
+                        id: portNumber
+                        text: "8080"
+                        validator: IntValidator {
+                            bottom: 1024
+                            top: 49151
+                        }
+                        width: 100
+                    }
+                }
+
             }
 
         }
