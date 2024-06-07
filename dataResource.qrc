@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/party.json</file>
+        <file>data/pests_basic.json</file>
+        <file>data/sim_encounter.json</file>
+        <file>data/minions_basic.json</file>
+        <file>data/monster_basic.json</file>
+        <file>data/4AD_Vermin.json</file>
+        <file>data/4AD_Boss.json</file>
+        <file>data/4AD_Minions.json</file>
+        <file>data/4AD_Monsters.json</file>
+        <file>data/4AD_MagicItem.json</file>
+        <file>data/4AD_Spells.json</file>
+        <file>data/4AD_Treasure.json</file>
+        <file>data/4AD_Features.json</file>
+        <file>data/4AD_Traps.json</file>
+        <file>data/4AD_Events.json</file>
+        <file>data/4AD_Complication.json</file>
+        <file>data/4AD_Quest.json</file>
+        <file>data/4AD_RoomContents.json</file>
+        <file>data/4AD_CorridorContents.json</file>
+        <file>data/4AD_EpicRewards.json</file>
+        <file>data/pages.json</file>
+        <file>data/ffSearchRoom.json</file>
+        <file>data/ffSearchCorridor.json</file>
+    </qresource>
+</RCC>
