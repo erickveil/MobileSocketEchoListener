@@ -15,5 +15,10 @@ ApplicationWindow {
         height: parent.height
         visible: true
         color: "#f0f0f0"
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 20
+        }
     }
 }
