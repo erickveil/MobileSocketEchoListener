@@ -11,10 +11,9 @@ ApplicationWindow {
     title: qsTr("Basic QML")
 
     Rectangle {
-        width: 100
-        height: 100
+        width: parent.width
+        height: parent.height
         visible: true
-        color: "red"
-        anchors.centerIn: parent
+        color: "#f0f0f0"
     }
 }
