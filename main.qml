@@ -89,6 +89,11 @@ ApplicationWindow {
                         color: "#333333"
                         anchors.verticalCenter: listenerSwitchContainer.verticalCenter
                     }
+
+                    Switch {
+                        id: listenerSwitch
+                        checked: false
+                    }
                 }
             }
 
