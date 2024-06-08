@@ -10,6 +10,18 @@ ApplicationWindow {
     color: "lightblue"
     title: qsTr("Basic QML")
 
+    onWidthChanged: updateLayout()
+    onHeightChanged: updateLayout()
+
+    function updateLayout() {
+        if (Screen.primaryOrientation === Screen.Landscape) {
+            column.with = parent.height * 0.9
+        }
+        else {
+            column.width = parent.witdth * 0.9
+        }
+    }
+
     Rectangle {
         width: parent.width
         height: parent.height
@@ -17,6 +29,7 @@ ApplicationWindow {
         color: "#f0f0f0"
 
         Column {
+            id: column
             width: parent.width * 0.9
             anchors.centerIn: parent
             spacing: 20
