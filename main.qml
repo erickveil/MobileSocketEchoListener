@@ -103,6 +103,39 @@ ApplicationWindow {
                 color: "#ffffff"
                 radius: 10
                 border.color: "#cccccc"
+
+                ListView {
+                    id: messageListView
+                    width: parent.width * 0.95
+                    height: parent.height
+                    model: ListModel {
+                        ListElement {
+                            timestamp: "12:00"
+                            message: "Hello World"
+                        }
+                    }
+
+                    delegate: Item {
+                        width: parent.width
+                        height: 40
+
+                        Row {
+                            spacing: 10
+                            Text {
+                                text: model.timestamp
+                                font.pixelSize: 14
+                                color: "#333333"
+                            }
+                            Text {
+                                text: model.message
+                                font.pixelSize: 14
+                                color: "#333333"
+                            }
+                        }
+                    }
+
+                    ScrollIndicator.vertical: ScrollIndicator {}
+                }
             }
 
         }
