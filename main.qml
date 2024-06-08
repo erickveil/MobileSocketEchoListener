@@ -71,6 +71,15 @@ ApplicationWindow {
 
             }
 
+            Rectangle {
+                id: listenerSwitchContainer
+                width: parent.width
+                height: 50
+                color: "#ffffff"
+                radius: 10
+                border.color: "#cccccc"
+            }
+
         }
     }
 }
