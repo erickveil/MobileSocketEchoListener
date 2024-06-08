@@ -78,6 +78,11 @@ ApplicationWindow {
                 color: "#ffffff"
                 radius: 10
                 border.color: "#cccccc"
+
+                Row {
+                    anchors.centerIn: parent
+                    spacing: 10
+                }
             }
 
         }
