@@ -97,6 +97,14 @@ ApplicationWindow {
                 }
             }
 
+            Rectangle {
+                width: parent.width
+                height: parent.height * 0.65
+                color: "#ffffff"
+                radius: 10
+                border.color: "#cccccc"
+            }
+
         }
     }
 }
