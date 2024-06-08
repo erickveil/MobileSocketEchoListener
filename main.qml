@@ -82,6 +82,13 @@ ApplicationWindow {
                 Row {
                     anchors.centerIn: parent
                     spacing: 10
+
+                    Text {
+                        text: "Start Listener"
+                        font.pixelSize: 20
+                        color: "#333333"
+                        anchors.verticalCenter: listenerSwitchContainer.verticalCenter
+                    }
                 }
             }
 
