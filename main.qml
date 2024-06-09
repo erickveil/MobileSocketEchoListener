@@ -10,6 +10,9 @@ ApplicationWindow {
     color: "lightblue"
     title: qsTr("Basic QML")
 
+    // TODO: Handle Screen Rotation
+    // This is not working:
+    /*
     onWidthChanged: updateLayout()
     onHeightChanged: updateLayout()
 
@@ -21,6 +24,7 @@ ApplicationWindow {
             column.width = parent.witdth * 0.9
         }
     }
+    */
 
     Rectangle {
         width: parent.width
