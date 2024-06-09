@@ -14,9 +14,6 @@
 #include <QTcpSocket>
 #include <QTimer>
 
-#include "staticlogger.h"
-
-
 namespace evtools {
 
 /**

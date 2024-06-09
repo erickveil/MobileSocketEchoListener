@@ -127,14 +127,14 @@ void UniversalListener::initConnections()
 
 void UniversalListener::startListener()
 {
-    const char *me = __PRETTY_FUNCTION__;
+    // const char *me = __PRETTY_FUNCTION__;
     QString name = Name == ""
             ? ""
             : Name + " (" + QString::number(_port) + ") ";
     QString logMsg;
     if (!_isSignalsConnected || _port == -1) {
         logMsg = name + "Listener not initialized.";
-        LOG_ERROR(logMsg);
+        //LOG_ERROR(logMsg);
         return;
     }
 
@@ -144,7 +144,7 @@ void UniversalListener::startListener()
 
     if (!isListening) {
         logMsg = name + "Problem while listening: " + _server.errorString();
-        StaticLogger::logWarn(me, __LINE__, logMsg);
+        //StaticLogger::logWarn(me, __LINE__, logMsg);
         if (_errorCallback) {
             _errorCallback(_server.serverError(), _server.errorString());
         }
@@ -154,7 +154,7 @@ void UniversalListener::startListener()
     else {
         logMsg = name + "Listening on " + _server.serverAddress().toString()
                  + ":" + QString::number(_server.serverPort());
-        StaticLogger::logInfo(me, __LINE__, logMsg);
+        //StaticLogger::logInfo(me, __LINE__, logMsg);
     }
 }
 
@@ -181,11 +181,11 @@ void UniversalListener::_respondWithAck()
     if (ack.size() == 0) { ack = "ack"; }
 
     int bytes = _connection->write(ack);
-    LOG_INFO("Queueing " + QString::number(bytes) + " bytes to write for ack.");
-    LOG_INFO("Response message: " + ack);
+    //LOG_INFO("Queueing " + QString::number(bytes) + " bytes to write for ack.");
+    //LOG_INFO("Response message: " + ack);
     bool isFlush = _connection->flush();
     QString msg = isFlush ? "Flush ok" : "No flush";
-    LOG_INFO(msg);
+    //LOG_INFO(msg);
     msg = "There are " + QString::number(_receivedDataBuffer.count()) +
             " bytes in the received buffer.";
 
@@ -194,10 +194,10 @@ void UniversalListener::_respondWithAck()
      */
     if (IsConstConnection) { _receivedDataBuffer.clear(); }
 
-    LOG_INFO(msg);
+    //LOG_INFO(msg);
     bool isOpen = _connection->isOpen();
     msg = isOpen ? "Connection is still open." : "Connection is closed.";
-    LOG_INFO(msg);
+    //LOG_INFO(msg);
 }
 
 void UniversalListener::_processReceivedBytes()
@@ -238,7 +238,7 @@ void UniversalListener::_eventListenerNewConnection()
             + Name
             + " listener port "
             + QString::number(_port);
-    StaticLogger::logInfo(__PRETTY_FUNCTION__, __LINE__, logMsg);
+    //StaticLogger::logInfo(__PRETTY_FUNCTION__, __LINE__, logMsg);
 
     if (!IsConstConnection) {
         _isWaitingOnData = true;
@@ -250,11 +250,13 @@ void UniversalListener::_eventListenerNewConnection()
             this, SLOT(_eventSocketConnected()) );
     connect(_connection, SIGNAL(disconnected()),
             this, SLOT(_eventSocketDisconnected()));
+    /*
     connect(_connection, QOverload<QAbstractSocket::SocketError>::
             of(&QAbstractSocket::error),
             [=](QAbstractSocket::SocketError socketError) {
         _eventSocketError(socketError);
     });
+    */
     connect(_connection, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
             this, SLOT(_eventSocketStateChanged(QAbstractSocket::SocketState)));
     connect(_connection, SIGNAL(aboutToClose()),
@@ -284,8 +286,8 @@ void UniversalListener::_eventSocketError(QAbstractSocket::SocketError err)
 {
     //LOG_INFO("_eventSocketError: " + QString::number(err));
     if (err == QAbstractSocket::SocketError::RemoteHostClosedError) {
-        LOG_INFO("The remote host has closed the connection.");
-        LOG_INFO("Final buffer size: " + QString::number(_receivedDataBuffer.count()));
+        //LOG_INFO("The remote host has closed the connection.");
+        // LOG_INFO("Final buffer size: " + QString::number(_receivedDataBuffer.count()));
     }
     // for the response socket, not the listener
     if (_errorCallback) { _errorCallback(err, _connection->errorString()); }
@@ -314,7 +316,7 @@ void UniversalListener::_eventIODeviceBytesWritten(qint64 bytes)
     //LOG_INFO("_eventIODeviceBytesWritten");
     //Q_UNUSED(bytes);
     QString logMsg = "Bytes sent as ack: " + QString::number(bytes);
-    LOG_INFO(logMsg);
+    // LOG_INFO(logMsg);
     _connection->flush();
 }
 
@@ -325,14 +327,14 @@ void UniversalListener::_eventIODeviceReadyRead()
 
     while (_connection->bytesAvailable() > 0) {
         QByteArray dataReceived = _connection->readAll();
-        LOG_INFO("Bytes received this round: " +
-                 QString::number(dataReceived.count()));
+        // LOG_INFO("Bytes received this round: " +
+        //         QString::number(dataReceived.count()));
         _receivedDataBuffer.append(dataReceived);
     }
 
     QString logMsg = "Total bytes received: " +
             QString::number(_receivedDataBuffer.size());
-    LOG_INFO(logMsg);
+    // LOG_INFO(logMsg);
     _respondWithAck();
 }
 

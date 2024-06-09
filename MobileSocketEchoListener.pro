@@ -2,7 +2,8 @@ QT += quick
 QT += core5compat
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        universallistener.cpp
 
 resources.files = main.qml 
 resources.prefix = /$${TARGET}
@@ -40,4 +41,5 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
         $$PWD/android
 }
 
-HEADERS +=
+HEADERS += \
+    universallistener.h
