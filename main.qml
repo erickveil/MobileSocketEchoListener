@@ -83,6 +83,8 @@ ApplicationWindow {
                             top: 49151
                         }
                         width: 100
+                        // Disable editing while listening
+                        enabled: !listenerSwitch.checked
                     }
                 }
 
