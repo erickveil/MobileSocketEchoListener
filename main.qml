@@ -49,7 +49,7 @@ ApplicationWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "Local IP: 192.168.1.1"  // Placeholder text
+                    text: controller.localIpAddress
                     font.pixelSize: 20
                     color: "#333333"  // font color
                 }
