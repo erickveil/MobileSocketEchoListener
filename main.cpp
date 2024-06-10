@@ -4,6 +4,8 @@
 #include <QQmlContext>
 #include <QIcon>
 
+#include "appcontroller.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -22,9 +24,13 @@ int main(int argc, char *argv[])
 
     // --------------------
     // Context Properties
+    AppController controller;
 
     QQmlApplicationEngine engine;
-    //QQmlContext *context = engine.rootContext();
+    QQmlContext *context = engine.rootContext();
+
+    context->setContextProperty("controller", &controller);
+
     const QUrl url(u"qrc:/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
