@@ -75,6 +75,7 @@ void UniversalListener::initData(int port,
 
 void UniversalListener::setPort(int port)
 {
+    qDebug() << "Setting port: " << port;
     _port = port;
 }
 
@@ -127,6 +128,8 @@ void UniversalListener::initConnections()
 
 void UniversalListener::startListener()
 {
+    qDebug() << "Start Listener Called.";
+
     // const char *me = __PRETTY_FUNCTION__;
     QString name = Name == ""
             ? ""
@@ -160,6 +163,7 @@ void UniversalListener::startListener()
 
 void UniversalListener::stopListener()
 {
+    qDebug() << "Stop Listener Called.";
     if (_server.isListening()) { _server.close(); }
 }
 

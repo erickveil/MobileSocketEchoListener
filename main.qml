@@ -112,6 +112,14 @@ ApplicationWindow {
                     Switch {
                         id: listenerSwitch
                         checked: false
+                        onCheckedChanged: {
+                            if (checked) {
+                                controller.startListener(parseInt(portNumber.text));
+                            }
+                            else {
+                                controller.stopListener();
+                            }
+                        }
                     }
                 }
             }
