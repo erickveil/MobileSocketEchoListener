@@ -77,7 +77,7 @@ ApplicationWindow {
 
                     TextField {
                         id: portNumber
-                        text: "8080"
+                        text: "50502"
                         validator: IntValidator {
                             bottom: 1024
                             top: 49151

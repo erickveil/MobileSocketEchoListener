@@ -3,7 +3,7 @@
 AppController::AppController(QObject *parent)
     : QObject{parent}
 {
-
+    _listener.initConnections();
 }
 
 AppController::~AppController()
