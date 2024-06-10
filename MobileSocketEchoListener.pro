@@ -2,6 +2,7 @@ QT += quick
 QT += core5compat
 
 SOURCES += \
+        appcontroller.cpp \
         main.cpp \
         universallistener.cpp
 
@@ -42,4 +43,5 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
 }
 
 HEADERS += \
+    appcontroller.h \
     universallistener.h
