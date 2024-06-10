@@ -14,13 +14,13 @@ int main(int argc, char *argv[])
 
     app.setApplicationName("Basic Android Qt qmake App");
     app.setApplicationDisplayName("Basic Android Qt qmake App");
-    app.setApplicationVersion("0.0.0");
-    //app.setOrganizationName("erickveil.net");
+    app.setApplicationVersion("1.0.0");
+    app.setOrganizationName("erickveil.net");
     app.setDesktopFileName("Basic Android Qt qmake App");
     app.setObjectName("Basic Android Qt qmake App");
     //QIcon icon(":/media/Archway1024.jpg");
     //app.setWindowIcon(icon);
-    //app.setOrganizationDomain("erickveil.net");
+    app.setOrganizationDomain("erickveil.net");
 
     // --------------------
     // Context Properties
