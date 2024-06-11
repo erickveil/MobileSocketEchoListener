@@ -12,12 +12,12 @@ int main(int argc, char *argv[])
 
     // App settings
 
-    app.setApplicationName("Basic Android Qt qmake App");
-    app.setApplicationDisplayName("Basic Android Qt qmake App");
+    app.setApplicationName("Mobile Socket Listener App");
+    app.setApplicationDisplayName("Mobile Socket Listener App");
     app.setApplicationVersion("1.0.0");
     app.setOrganizationName("erickveil.net");
-    app.setDesktopFileName("Basic Android Qt qmake App");
-    app.setObjectName("Basic Android Qt qmake App");
+    app.setDesktopFileName("Mobile Socket Listener App");
+    app.setObjectName("Mobile Socket Listener App");
     //QIcon icon(":/media/Archway1024.jpg");
     //app.setWindowIcon(icon);
     app.setOrganizationDomain("erickveil.net");
