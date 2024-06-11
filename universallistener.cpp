@@ -130,14 +130,13 @@ void UniversalListener::startListener()
 {
     qDebug() << "Start Listener Called.";
 
-    // const char *me = __PRETTY_FUNCTION__;
     QString name = Name == ""
             ? ""
             : Name + " (" + QString::number(_port) + ") ";
     QString logMsg;
     if (!_isSignalsConnected || _port == -1) {
         logMsg = name + "Listener not initialized.";
-        //LOG_ERROR(logMsg);
+        qWarning() << logMsg;
         return;
     }
 
@@ -147,7 +146,7 @@ void UniversalListener::startListener()
 
     if (!isListening) {
         logMsg = name + "Problem while listening: " + _server.errorString();
-        //StaticLogger::logWarn(me, __LINE__, logMsg);
+        qWarning() << logMsg;
         if (_errorCallback) {
             _errorCallback(_server.serverError(), _server.errorString());
         }
@@ -157,7 +156,7 @@ void UniversalListener::startListener()
     else {
         logMsg = name + "Listening on " + _server.serverAddress().toString()
                  + ":" + QString::number(_server.serverPort());
-        //StaticLogger::logInfo(me, __LINE__, logMsg);
+        qDebug() << logMsg;
     }
 }
 
@@ -174,7 +173,6 @@ int UniversalListener::getPort()
 
 void UniversalListener::_respondWithAck()
 {
-    //LOG_INFO("_respondWithAck");
     QByteArray ack;
     ack.clear();
 
@@ -185,11 +183,11 @@ void UniversalListener::_respondWithAck()
     if (ack.size() == 0) { ack = "ack"; }
 
     int bytes = _connection->write(ack);
-    //LOG_INFO("Queueing " + QString::number(bytes) + " bytes to write for ack.");
+    qDebug() << "Queueing " << bytes << " bytes to write for ack.";
     //LOG_INFO("Response message: " + ack);
     bool isFlush = _connection->flush();
     QString msg = isFlush ? "Flush ok" : "No flush";
-    //LOG_INFO(msg);
+    qDebug() << msg;
     msg = "There are " + QString::number(_receivedDataBuffer.count()) +
             " bytes in the received buffer.";
 
@@ -198,15 +196,14 @@ void UniversalListener::_respondWithAck()
      */
     if (IsConstConnection) { _receivedDataBuffer.clear(); }
 
-    //LOG_INFO(msg);
+    qDebug() << msg;
     bool isOpen = _connection->isOpen();
     msg = isOpen ? "Connection is still open." : "Connection is closed.";
-    //LOG_INFO(msg);
+    qDebug() << msg;
 }
 
 void UniversalListener::_processReceivedBytes()
 {
-    //LOG_INFO("_processReceivedBytes");
     if (_parseCallback) {
         _parseCallback(_receivedDataBuffer);
     }
@@ -215,15 +212,13 @@ void UniversalListener::_processReceivedBytes()
 void UniversalListener::_eventListenerAcceptError(
         QAbstractSocket::SocketError err)
 {
-    //LOG_INFO("_eventListnerAcceptError");
-    //qDebug() << "Connection accept error: " + _server.errorString();
+    qDebug() << "Connection accept error: " + _server.errorString();
     if (_errorCallback) { _errorCallback(err, _server.errorString()); }
 }
 
 void UniversalListener::_eventListenerNewConnection()
 {
-    //LOG_INFO("_eventListenerNewConnection");
-    //qDebug() << "Event new connection.";
+    qDebug() << "Event new connection.";
 
     // new connection, prime buffer
     _receivedDataBuffer.clear();
@@ -242,7 +237,7 @@ void UniversalListener::_eventListenerNewConnection()
             + Name
             + " listener port "
             + QString::number(_port);
-    //StaticLogger::logInfo(__PRETTY_FUNCTION__, __LINE__, logMsg);
+    qDebug() << logMsg;
 
     if (!IsConstConnection) {
         _isWaitingOnData = true;
@@ -275,23 +270,23 @@ void UniversalListener::_eventListenerNewConnection()
 
 void UniversalListener::_eventSocketConnected()
 {
-    //LOG_INFO("_eventSocketConnected");
+    qDebug() << "Event response socket connected";
     // for the response socket, not the listener
 
 }
 
 void UniversalListener::_eventSocketDisconnected()
 {
-    //LOG_INFO("_eventSocketDisconnected");
+    qDebug() << "Event response socket disconnected";
     // for the response socket, not the listener
 }
 
 void UniversalListener::_eventSocketError(QAbstractSocket::SocketError err)
 {
-    //LOG_INFO("_eventSocketError: " + QString::number(err));
+    qWarning() << "_eventSocketError: " << err;
     if (err == QAbstractSocket::SocketError::RemoteHostClosedError) {
-        //LOG_INFO("The remote host has closed the connection.");
-        // LOG_INFO("Final buffer size: " + QString::number(_receivedDataBuffer.count()));
+        qDebug() << "The remote host has closed the connection.";
+        qDebug() << "Final buffer size: " << _receivedDataBuffer.count();
     }
     // for the response socket, not the listener
     if (_errorCallback) { _errorCallback(err, _connection->errorString()); }
@@ -300,7 +295,7 @@ void UniversalListener::_eventSocketError(QAbstractSocket::SocketError err)
 void UniversalListener::_eventSocketStateChanged(
         QAbstractSocket::SocketState state)
 {
-    //LOG_INFO("_eventSocetStateChanged: " + QString::number(state));
+    qDebug() << "_eventSocetStateChanged: " << state;
 
     if (state == QAbstractSocket::ClosingState) {
         _processReceivedBytes();
@@ -309,46 +304,43 @@ void UniversalListener::_eventSocketStateChanged(
 
 void UniversalListener::_eventIODeviceAboutToClose()
 {
-    //LOG_INFO("_eventIODeviceAboutToClose");
     // for the response socket, not the listener
-    //qDebug() << "Event About to Close.";
+    qDebug() << "Event Response socket About to Close.";
 
 }
 
 void UniversalListener::_eventIODeviceBytesWritten(qint64 bytes)
 {
-    //LOG_INFO("_eventIODeviceBytesWritten");
+    qDebug() << "_eventIODeviceBytesWritten";
     //Q_UNUSED(bytes);
     QString logMsg = "Bytes sent as ack: " + QString::number(bytes);
-    // LOG_INFO(logMsg);
+    qDebug() << logMsg;
     _connection->flush();
 }
 
 void UniversalListener::_eventIODeviceReadyRead()
 {
-    //LOG_INFO("_eventIODeviceReadyRead");
-    //LOG_INFO("Event Ready Read.");
+    qDebug() << "Event Ready Read.";
 
     while (_connection->bytesAvailable() > 0) {
         QByteArray dataReceived = _connection->readAll();
-        // LOG_INFO("Bytes received this round: " +
-        //         QString::number(dataReceived.count()));
+        qDebug() << "Bytes received this round: " << dataReceived.count();
         _receivedDataBuffer.append(dataReceived);
     }
 
     QString logMsg = "Total bytes received: " +
             QString::number(_receivedDataBuffer.size());
-    // LOG_INFO(logMsg);
+    qDebug() << logMsg;
     _respondWithAck();
 }
 
 void UniversalListener::_eventReadyReadTimeout()
 {
-    //LOG_INFO("_eventReadyReadTimeout");
+    qDebug() << "_eventReadyReadTimeout";
     /// Noticing that legit messages get to this point that have no newline at
     /// the end of them. It's like the socket is read, and we still time out
     /// here.
-    //LOG_WARN("No data delivered to connection with " + Name);
+    qWarning() << "No data delivered to connection with " << Name;
     _connection->flush();
     _connection->close();
 }
