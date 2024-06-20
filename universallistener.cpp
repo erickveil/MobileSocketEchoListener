@@ -249,13 +249,10 @@ void UniversalListener::_eventListenerNewConnection()
             this, SLOT(_eventSocketConnected()) );
     connect(_connection, SIGNAL(disconnected()),
             this, SLOT(_eventSocketDisconnected()));
-    /*
-    connect(_connection, QOverload<QAbstractSocket::SocketError>::
-            of(&QAbstractSocket::error),
-            [=](QAbstractSocket::SocketError socketError) {
-        _eventSocketError(socketError);
-    });
-    */
+
+    connect(_connection, &QAbstractSocket::errorOccurred,
+            this, &UniversalListener::_eventSocketError);
+
     connect(_connection, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
             this, SLOT(_eventSocketStateChanged(QAbstractSocket::SocketState)));
     connect(_connection, SIGNAL(aboutToClose()),
