@@ -72,7 +72,8 @@ ApplicationWindow {
                         text: "Port:"
                         font.pixelSize: 20
                         color: "#333333"
-                        anchors.verticalCenter: portContainer.verticalCenter
+                        // Can only anchor to a parent...
+                        //anchors.verticalCenter: portContainer.verticalCenter
                     }
 
                     TextField {
@@ -106,7 +107,7 @@ ApplicationWindow {
                         text: "Start Listener"
                         font.pixelSize: 20
                         color: "#333333"
-                        anchors.verticalCenter: listenerSwitchContainer.verticalCenter
+                        //anchors.verticalCenter: listenerSwitchContainer.verticalCenter
                     }
 
                     Switch {
