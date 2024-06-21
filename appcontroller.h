@@ -32,6 +32,7 @@ public slots:
 
 signals:
     void localIpAddressChanged();
+    void postInfo(const QString &timestamp, const QString &message);
 
 private:
     void fetchLocalIpAddress();
