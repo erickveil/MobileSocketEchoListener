@@ -26,6 +26,10 @@ ApplicationWindow {
     }
     */
 
+    ListModel {
+        id: messageModel
+    }
+
     Rectangle {
         width: parent.width
         height: parent.height
@@ -136,12 +140,7 @@ ApplicationWindow {
                     id: messageListView
                     width: parent.width * 0.95
                     height: parent.height
-                    model: ListModel {
-                        ListElement {
-                            timestamp: "12:00"
-                            message: "Hello World"
-                        }
-                    }
+                    model: messageModel
 
                     delegate: Item {
                         width: parent.width
@@ -165,7 +164,14 @@ ApplicationWindow {
                     ScrollIndicator.vertical: ScrollIndicator {}
                 }
             }
-
         }
+    }
+
+    Connections {
+        target: controller
+        onPostInfo: {
+            messageModel.append( { "timestamp": timestamp, "message": message } );
+        }
+
     }
 }
