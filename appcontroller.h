@@ -29,6 +29,7 @@ public:
 public slots:
     void startListener(int port);
     void stopListener();
+    void onDataReceived(QByteArray msg);
 
 signals:
     void localIpAddressChanged();

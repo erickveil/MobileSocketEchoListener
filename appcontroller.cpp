@@ -10,11 +10,8 @@ AppController::AppController(QObject *parent)
 {
     // TODO: This is too much work for a constructor.
     _listener.initConnections();
-    _listener.setParseCallback([&] (QByteArray msg) {
-        qDebug() << "Parse callback: " << msg;
-        QString timestamp = _createTimestamp();
-        emit postInfo(timestamp, msg);
-    });
+    connect(&_listener, &UniversalListener::dataReceived,
+            this, &AppController::onDataReceived);
     fetchLocalIpAddress();
 }
 
@@ -32,6 +29,13 @@ void AppController::startListener(int port)
 void AppController::stopListener()
 {
     _listener.stopListener();
+}
+
+void AppController::onDataReceived(QByteArray msg)
+{
+    qDebug() << "onDataReceived: " << msg;
+    QString timestamp = _createTimestamp();
+    emit postInfo(timestamp, msg);
 }
 
 void AppController::fetchLocalIpAddress()

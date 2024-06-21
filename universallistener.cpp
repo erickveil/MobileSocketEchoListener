@@ -320,9 +320,10 @@ void UniversalListener::_eventIODeviceReadyRead()
     qDebug() << "Event Ready Read.";
 
     while (_connection->bytesAvailable() > 0) {
-        QByteArray dataReceived = _connection->readAll();
-        qDebug() << "Bytes received this round: " << dataReceived.count();
-        _receivedDataBuffer.append(dataReceived);
+        QByteArray receivedData = _connection->readAll();
+        qDebug() << "Bytes received this round: " << receivedData.count();
+        _receivedDataBuffer.append(receivedData);
+        emit dataReceived(receivedData);
     }
 
     QString logMsg = "Total bytes received: " +

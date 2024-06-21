@@ -240,6 +240,9 @@ public:
      */
     int getPort();
 
+signals:
+    void dataReceived(QByteArray msg);
+
 private:
     void _respondWithAck();
     void _processReceivedBytes();
