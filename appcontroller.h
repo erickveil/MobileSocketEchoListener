@@ -36,6 +36,7 @@ signals:
 
 private:
     void fetchLocalIpAddress();
+    QString _createTimestamp();
 
 };
 

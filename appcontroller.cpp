@@ -10,6 +10,11 @@ AppController::AppController(QObject *parent)
 {
     // TODO: This is too much work for a constructor.
     _listener.initConnections();
+    _listener.setParseCallback([&] (QByteArray msg) {
+        qDebug() << "Parse callback: " << msg;
+        QString timestamp = _createTimestamp();
+        emit postInfo(timestamp, msg);
+    });
     fetchLocalIpAddress();
 }
 
@@ -40,4 +45,10 @@ void AppController::fetchLocalIpAddress()
         emit localIpAddressChanged();
         break;
     }
+}
+
+QString AppController::_createTimestamp()
+{
+    // TODO: Generate an actual timestamp.
+    return "00:00:00";
 }
