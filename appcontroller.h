@@ -2,6 +2,7 @@
 #define APPCONTROLLER_H
 
 #include <QAbstractSocket>
+#include <QDateTime>
 #include <QHostAddress>
 #include <QList>
 #include <QNetworkInterface>

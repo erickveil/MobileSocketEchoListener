@@ -53,6 +53,5 @@ void AppController::fetchLocalIpAddress()
 
 QString AppController::_createTimestamp()
 {
-    // TODO: Generate an actual timestamp.
-    return "00:00:00";
+    return QDateTime::currentDateTime().toString("HH:mm:ss");
 }
