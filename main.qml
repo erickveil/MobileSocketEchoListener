@@ -146,17 +146,25 @@ ApplicationWindow {
                         width: parent.width
                         height: 40
 
-                        Row {
-                            spacing: 10
-                            Text {
-                                text: model.timestamp
-                                font.pixelSize: 14
-                                color: "#333333"
-                            }
-                            Text {
-                                text: model.message
-                                font.pixelSize: 14
-                                color: "#333333"
+                        Column {
+                            width: parent.width
+                            spacing: 5
+
+                            Rectangle {
+                                width: parent.width
+
+                                Text {
+                                    text: model.timestamp
+                                    font.pixelSize: 14
+                                    color: "blue"
+                                }
+                                Text {
+                                    text: model.message
+                                    font.pixelSize: 14
+                                    wrapMode: Text.WordWrap
+                                    color: "black"
+                                    width: parent.width
+                                }
                             }
                         }
                     }
