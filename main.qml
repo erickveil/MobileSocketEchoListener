@@ -151,19 +151,30 @@ ApplicationWindow {
                             spacing: 5
 
                             Rectangle {
+                                id: entryContainer
                                 width: parent.width
+                                height: implicitHeight
+                                color: index % 2 == 0 ? "white" : "lightblue"
 
-                                Text {
-                                    text: model.timestamp
-                                    font.pixelSize: 14
-                                    color: "blue"
-                                }
-                                Text {
-                                    text: model.message
-                                    font.pixelSize: 14
-                                    wrapMode: Text.WordWrap
-                                    color: "black"
+                                Column {
                                     width: parent.width
+                                    spacing: 5
+                                    Text {
+                                        text: model.timestamp
+                                        font.pixelSize: 14
+                                        color: "blue"
+                                    }
+                                    Text {
+                                        text: model.message
+                                        font.pixelSize: 14
+                                        wrapMode: Text.WordWrap
+                                        color: "black"
+                                        width: parent.width
+                                        onImplicitHeightChanged: {
+                                            console.log("onImplicitHeightChanged: " + implicitHeight);
+                                            entryContainer.height = implicitHeight + 10
+                                        }
+                                    }
                                 }
                             }
                         }
